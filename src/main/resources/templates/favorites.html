@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta charset="UTF-8">
+    <title>Favorite Cities</title>
+    <ul>
+        <p th:if="${#lists.isEmpty(cities)}">
+            No favorite cities added yet.
+        </p>
+        <li th:each="city : ${cities}"class="favorite-item">
+            <a th:href="@{/(cityName=${city.name})}"
+               th:text="${city.name}"
+               class="city-link">
+            </a>
+
+            <form th:action="@{/favorites/delete/{id}(id=${city.id})}"
+                  method="post">
+                <button type="submit" class="delete-button">Delete</button>
+            </form>
+        </li>
+    </ul>
+</head>
+<body>
+<nav>
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/favorites}">Favorites</a>
+</nav>
+<h1>Favorite Cities</h1>
+</body>
+</html>

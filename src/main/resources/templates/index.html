@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+</head>
+<body>
+<nav>
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/favorites}">Favorites</a>
+</nav>
+<h1>Weather App</h1>
+<p>Welcome to the Weather Application!</p>
+<h2>Search Weather</h2>
+
+<form action="/" method="get">
+    <label for="cityName">City:</label>
+    <input type="text" id="cityName" name="cityName"
+           placeholder="Enter city name" required>
+
+    <button type="submit">Search</button>
+</form>
+<div th:if="${error != null}">
+    <p th:text="${error}"></p>
+</div>
+<div th:if="${weather != null}" class="weather-card">
+
+    <h2 th:text="${cityName}">City</h2>
+
+    <p>
+        Temperature:
+        <span th:text="${weather.temperature}"></span> °C
+    </p>
+
+    <p>
+        Humidity:
+        <span th:text="${weather.humidity}"></span> %
+    </p>
+
+    <p>
+        Wind Speed:
+        <span th:text="${weather.windSpeed}"></span> km/h
+    <p>
+    <form th:action="@{/favorites/add}" method="post">
+        <input type="hidden" name="cityName" th:value="${cityName}">
+        <button type="submit" class="favorite-button">Add to Favorites</button>
+    </form>
+</div>
+</body>
+</html>
